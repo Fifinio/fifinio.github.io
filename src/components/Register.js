@@ -20,7 +20,7 @@ const Register = props => {
 	// }
     
 	return (
-    	<div className="form" method="post">
+    	<div className="form">
     		{props.children}
         <h4>Create a new account</h4>
         
@@ -43,7 +43,7 @@ const Register = props => {
 			placeholder="Repeat Password" 
 			type="password" required 
 			onChange={e=>setConfirmPassword(e.target.value)}/>
-        <button >Create</button>
+        <button>Create</button>
       </div>
     );
 }
