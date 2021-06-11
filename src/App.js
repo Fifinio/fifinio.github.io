@@ -9,19 +9,21 @@ import Todo from './components/Todo';
 
 
 const App = () => {
-    const [isAuthenticated, SetAuthenticated] = useState(false);
+    const [Authentication, setAuthentication] = useState(false);
     const [showRegister, setRegister] = useState(false);
 
     const toggleRegister = () => {
         setRegister(!showRegister);
     }    
-
     //If the user is logged in display the todo app, else display the login or register form
-   if (isAuthenticated) {
+   if (Authentication) {
+       fetch('https://recruitment.ultimate.systems/to-do-lists')
+        .then(res => console.log(res))
        return (
        <React.Fragment>
        <Logo/>
-       <Todo/>
+       
+       <Todo todolists={Authentication}/>
        </React.Fragment>)
    }else {
        if(showRegister){
@@ -43,7 +45,9 @@ const App = () => {
                 <React.Fragment>
                     <Logo/>             
                     <Form title="Login">
-                        <Login />
+                        <Login 
+                        //Weird hack that technically takes props from the child and passes them to the parent
+                        authenticate={Authentication => setAuthentication(Authentication)}/>
                         <span className="or">
                             or
                         </span>

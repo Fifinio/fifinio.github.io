@@ -1,7 +1,8 @@
 import React from 'react';
 import TodoList from './TodoList';
 
-const Todo = () => {
+const Todo = (props) => {
+    console.log(props)
     return(
         <div className="todo">
             <input type="text"/>

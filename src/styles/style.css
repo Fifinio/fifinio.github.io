@@ -73,14 +73,14 @@ body{
     width: 70%;
     height: 2.5vh;
 }
-.form > input:focus {
+input:focus {
     transition: all 0.25s;
     color: #fff;
     background-color: rgb(65, 65, 65);
 }
 
 .form > input:first-of-type {
-    margin-top: 8vw;
+    margin-top: 6vw;
 }
 .todo {
     grid-row: 2;

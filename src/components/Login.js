@@ -1,11 +1,6 @@
 import React,{useState} from 'react';
 
-
-
-const Login = () => {
-
-    const sendLogin = async (login, password) => {
-    
+const sendLogin = async (login, password) => {
     await fetch("https://recruitment.ultimate.systems/auth/local", {
         method: "POST",
         mode: "cors",
@@ -18,12 +13,15 @@ const Login = () => {
             password: password,
             },
         )
-        }
-    )
-  .then((response) => response.json())
-  .then(data => data.user.confirmed)
-  .catch((err) => console.error(err));
-}
+    })
+    .then((response) => response.json())
+    .then(data => data.user)
+    .catch((err) => console.error(err))
+    }
+
+const Login = props => {
+
+    
     const [login, setLogin] = useState('');
     const [password, setPassword] = useState('');
 
@@ -39,7 +37,7 @@ const Login = () => {
             placeholder="Password" 
             type="password" required
             onChange={e=>setPassword(e.target.value)}/>
-            <button onClick={() => sendLogin(login, password)}>
+            <button onClick={() => props.authenticate(sendLogin(login, password))}>
                 Login
             </button>
         </React.Fragment>

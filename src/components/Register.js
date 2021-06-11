@@ -5,24 +5,40 @@ const Register = props => {
   	const [email, setEmail] = useState('');
   	const [password, setPassword] = useState('');
   	const [confirmPassword, setConfirmPassword] = useState('');
-	// const sendRegister = (login, email, password, confirmPassword) => {
-	// 	if(password===confirmPassword){
-	// 		const registerUrl = "https://recruitment.ultimate.systems/auth/local/register";
-	// 		fetch(registerUrl, {
-	// 			method: 'POST',
-	// 			body: {
-	// 				"username": ,
-	// 				"email" : ,
-	// 				"password": password
-	// 			}
-	// 		}).then(response => console.log(response))
-	// 	}
-	// }
+	
+	const sendRegister = async (login, email, password, confirmPassword) => {
+		const item = JSON.stringify({
+			username: login,
+			email : email,
+			password: password
+		});
+		if(password===confirmPassword){
+			const data = await fetch('https://recruitment.ultimate.systems/auth/local/register', {
+				method: 'POST',
+				mode: "cors",
+				headers: {
+					"Accept": "application/json",
+					"Content-Type":"application/json"
+				},
+				body: item,
+			})
+			.then(response => response.json())
+			.then(data => data)
+			.catch(err=>console.error(err))
+
+			if(data){
+				document.getElementById('regHead').value = "Registed successfully";
+			}
+		}
+		else{
+			alert("Passwords don't match!");
+		}
+	}
     
 	return (
     	<div className="form">
     		{props.children}
-        <h4>Create a new account</h4>
+        <h4 id="regHead">Create a new account</h4>
         
 		<input name="username" 
 			placeholder="Username" 
@@ -43,7 +59,7 @@ const Register = props => {
 			placeholder="Repeat Password" 
 			type="password" required 
 			onChange={e=>setConfirmPassword(e.target.value)}/>
-        <button>Create</button>
+        <button onClick={() => sendRegister(login, email, password, confirmPassword)}>Create</button>
       </div>
     );
 }
