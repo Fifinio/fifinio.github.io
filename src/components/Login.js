@@ -15,13 +15,11 @@ const sendLogin = async (login, password) => {
         )
     })
     .then((response) => response.json())
-    .then(data => data.user)
-    .catch((err) => console.error(err))
+    .then(data => data)
+    .catch((err) => console.error(err));
     }
 
 const Login = props => {
-
-    
     const [login, setLogin] = useState('');
     const [password, setPassword] = useState('');
 

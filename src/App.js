@@ -15,15 +15,25 @@ const App = () => {
     const toggleRegister = () => {
         setRegister(!showRegister);
     }    
+    const getTodoLists = async (Authentication) => {
+           await fetch('https://recruitment.ultimate.systems/to-do-lists',{
+            headers: new Headers ({
+                
+                "Authorization": `Bearer ${Authentication.jwt}`
+            }),
+            mode: "cors",   
+            method: "GET",
+       })
+        .then(res => res.json().user);}
+
     //If the user is logged in display the todo app, else display the login or register form
    if (Authentication) {
-       fetch('https://recruitment.ultimate.systems/to-do-lists')
-        .then(res => console.log(res))
        return (
        <React.Fragment>
        <Logo/>
-       
-       <Todo todolists={Authentication}/>
+       <Todo 
+       todolists={() => getTodoLists(Authentication)}
+       auth={Authentication}/>
        </React.Fragment>)
    }else {
        if(showRegister){
@@ -46,7 +56,7 @@ const App = () => {
                     <Logo/>             
                     <Form title="Login">
                         <Login 
-                        //Weird hack that technically takes props from the child and passes them to the parent
+                        //Weird hack that technically takes props from the child and passes them to the parent (it actually passes a function that in turn returns the data we need)
                         authenticate={Authentication => setAuthentication(Authentication)}/>
                         <span className="or">
                             or

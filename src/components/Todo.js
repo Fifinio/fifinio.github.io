@@ -2,19 +2,33 @@ import React from 'react';
 import TodoList from './TodoList';
 
 const Todo = (props) => {
-    console.log(props)
+    const jwt = props.auth.jwt;
+    const todolists = props.todolists;
+    const lists = <TodoList/>;
+       const TodoAdd = async (jwt) => {
+           await fetch('https://recruitment.ultimate.systems/to-do-lists',{
+            headers: new Headers ({
+                'Authorization': `Bearer ${jwt}`
+            }),
+            mode: "cors",
+            method: "POST",
+        })
+       }
     return(
-        <div className="todo">
+        <React.Fragment>
+            <div>
+                Logout
+            </div>
             <input type="text"/>
-            <select>
-                <option value="">Name</option>
-                <option value="saab">Creation date</option>
-                <option value="mercedes">B</option>
-                <option value="audi">Audi TT</option>
-            </select>
-            <TodoList/>
-        </div>
+            <button>
+                Sort by
+            </button>
+            <div className="todo">
+                {lists}
+            </div>
+            <button onClick={() => TodoAdd(jwt)}>+</button>
+        </React.Fragment>
     )
-}
+    }
 
 export default Todo;
