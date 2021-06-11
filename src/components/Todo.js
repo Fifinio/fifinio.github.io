@@ -1,21 +1,21 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import TodoList from './TodoList';
 
 const Todo = (props) => {
-    const jwt = props.auth.jwt;
-    const todolists = props.todolists;
+    const [Jwt,setJwt] = useState(props.auth.jwt);
+    const [Todolists,setTodolists] = useState(props.todolists);
     const lists = <TodoList/>;
-       const TodoAdd = async (jwt) => {
+       const TodoAdd = async (Kwt) => {
            await fetch('https://recruitment.ultimate.systems/to-do-lists',{
             headers: new Headers ({
-                'Authorization': `Bearer ${jwt}`
+                'Authorization': `Bearer ${Jwt}`
             }),
             mode: "cors",
             method: "POST",
         })
        }
     return(
-        <React.Fragment>
+        <React.Fragment >
             <div>
                 Logout
             </div>
@@ -26,7 +26,7 @@ const Todo = (props) => {
             <div className="todo">
                 {lists}
             </div>
-            <button onClick={() => TodoAdd(jwt)}>+</button>
+            <button onClick={() => TodoAdd(Jwt)}>+</button>
         </React.Fragment>
     )
     }

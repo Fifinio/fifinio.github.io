@@ -14,9 +14,10 @@ const sendLogin = async (login, password) => {
             },
         )
     })
-    .then((response) => response.json())
+    .then((response) => response.json().jwk)
     .then(data => data)
     .catch((err) => console.error(err));
+
     }
 
 const Login = props => {

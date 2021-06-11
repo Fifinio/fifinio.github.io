@@ -18,7 +18,6 @@ const App = () => {
     const getTodoLists = async (Authentication) => {
            await fetch('https://recruitment.ultimate.systems/to-do-lists',{
             headers: new Headers ({
-                
                 "Authorization": `Bearer ${Authentication.jwt}`
             }),
             mode: "cors",   
